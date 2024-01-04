@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load mathfilters %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>{{name}}</h1>
+<br>
+<h1>{{age}}</h1>
+<h1>오늘은 {{time}}</h1>
+<h1>오늘은 {{oddOrEven}}날 입니다.</h1>
+<h1>사업자번호는 {{bizNum}}이고</h1>
+<h1>{{bizNumVerified}}한 사업자번호 입니다.</h1>
+<h1>{{first}}와 {{second}}의 합은 {{hap}}입니다.</h1>
+   <!-- <ul>{% for i,j in gugudan %}
+            <li>{{i}} * {{j}} = {% widthratio i 1 j %}</li>
+    {% endfor %} !-->
+<ul>{% for i in gugudan1 %}
+        {% for j in gugudan1 %}
+            <li>{{i}} * {{j}} = {% widthratio i 1 j %}</li>
+        {% endfor %}
+    {% endfor %}</ul>
+{{dic.first}}
+
+<!--월 짝수 홀수 판단 if문 실습!-->
+{% if month|divisibleby:2 %}
+    <p>이번달은 짝수월입니다.</p>
+{% else %}
+    <p>이번달은 홀수월입니다.</p>
+{% endif %}
+
+<!--구구단 짝수단만 출력!-->
+<ul>{% for i in gugudan1 %} <!-- gugudan1 == [1,2,3,4,5,6,7,8,9] !-->
+        {% for j in gugudan1 %}
+            {% if i|divisibleby:2 %}
+                <li>{{i}} * {{j}} = {% widthratio i 1 j %}</li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}</ul>
+
+<!--현재시간 중 분이 홀수면 홀수단만 출력, 분이 짝수면 짝수단만 출력!-->
+<p>현재시간은 {{time}}</p>
+<p>현재 시간중 초가 홀수면 홀수단만, 짝수면 짝수단만 출력합니다</p>
+<ul>{% for i in gugudan1 %} <!-- gugudan1 == [1,2,3,4,5,6,7,8,9] !-->
+        {% for j in gugudan1 %}
+            {% if seconds|divisibleby:2 %}
+                {% if i|divisibleby:2 %}
+                    <li>{{i}} * {{j}} = {% widthratio i 1 j %}</li>
+                {% endif %}
+            {% else %}
+                {% if not i|divisibleby:2 %}
+                    <li>{{i}} * {{j}} = {% widthratio i 1 j %}</li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}</ul>
+
+</body>
+</html>
